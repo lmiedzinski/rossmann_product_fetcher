@@ -32,7 +32,7 @@ namespace ProductFetcherApi
             services.AddSingleton(Configuration.GetSection("MongoDbConfiguration").Get<MongoDbConfiguration>());
             services.AddSingleton<MongoDbConnector>();
             services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddTransient<IHandler<ReceiveMessage>, SendMessageHandler>();
+            services.AddTransient<IHandler<ReceiveMessage>, ReceiveMessageHandler>();
             services.AddScoped<IProductService, ProductService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
