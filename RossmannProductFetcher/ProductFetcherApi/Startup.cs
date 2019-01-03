@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using ProductFetcherApi.DbConnectors;
 using ProductFetcherApi.RabbitmqUtils;
 using ProductFetcherApi.Repositories;
+using ProductFetcherApi.Services;
 
 namespace ProductFetcherApi
 {
@@ -31,7 +32,8 @@ namespace ProductFetcherApi
             services.AddSingleton(Configuration.GetSection("MongoDbConfiguration").Get<MongoDbConfiguration>());
             services.AddSingleton<MongoDbConnector>();
             services.AddSingleton<IProductRepository, ProductRepository>();
-            services.AddTransient<IHandler<SendMessage>, SendMessageHandler>();
+            services.AddTransient<IHandler<ReceiveMessage>, SendMessageHandler>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddRabbitMq(Configuration.GetSection("rabbitmq"));
         }
@@ -50,7 +52,7 @@ namespace ProductFetcherApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
-            app.AddHandler<SendMessage>();
+            app.AddHandler<ReceiveMessage>();
         }
     }
 }

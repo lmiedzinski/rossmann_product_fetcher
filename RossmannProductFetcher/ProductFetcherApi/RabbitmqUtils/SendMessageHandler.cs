@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProductFetcherApi.RabbitmqUtils
 {
-    public class SendMessageHandler : IHandler<SendMessage>
+    public class SendMessageHandler : IHandler<ReceiveMessage>
     {
         private readonly IProductRepository _productRepository;
 
@@ -16,7 +16,7 @@ namespace ProductFetcherApi.RabbitmqUtils
             _productRepository = productRepository;
         }
 
-        public async Task HandleAsync(SendMessage @event, CancellationToken token)
+        public async Task HandleAsync(ReceiveMessage @event, CancellationToken token)
         {
             Console.WriteLine($"Receive: {@event.Data}");
             await _productRepository.AddProduct(@event.Data.ToString());

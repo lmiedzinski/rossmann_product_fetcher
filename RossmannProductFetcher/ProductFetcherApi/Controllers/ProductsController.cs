@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProductFetcherApi.Services;
 
 namespace ProductFetcherApi.Controllers
 {
@@ -10,12 +11,20 @@ namespace ProductFetcherApi.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly IProductService _productService;
+
+        public ProductsController(IProductService productService)
+        {
+            _productService = productService;
+        }
+
         // GET api/products/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-
-            return Ok();
+            var product = await _productService.GetProductById(id);
+            if (product != null) return Ok(product);
+            else return Accepted();
         }
 
     }

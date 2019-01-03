@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ProductFetcherApi.RabbitmqUtils
 {
-    public class SendMessage : IMessage
+    public class ReceiveMessage : IMessage
     {
-        public string Data { get; set; }
-        public SendMessage(string message)
+        public JObject Data { get; set; }
+        public ReceiveMessage(JObject message)
         {
             Data = message;
         }

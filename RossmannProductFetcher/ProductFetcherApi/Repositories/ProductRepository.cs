@@ -28,7 +28,7 @@ namespace ProductFetcherApi.Repositories
 
         public async Task<BsonDocument> GetProductById(int id)
         {
-            return await _products.Find(x => x.GetValue("data").AsBsonDocument.GetValue("id").AsInt32 == id).FirstAsync();
+            return await _products.Find(new BsonDocument("id", id)).FirstOrDefaultAsync();
         }
     }
 }
