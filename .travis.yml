@@ -3,6 +3,9 @@ dist: trusty
 sudo: required
 mono: none
 dotnet: 2.1
+branches:
+  only:
+    - master
 before_script:
   - chmod -R a+x ci_scripts
 script:
