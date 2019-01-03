@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductFetcherService.Services;
+using System;
 
 namespace ProductFetcherService
 {
@@ -6,7 +7,9 @@ namespace ProductFetcherService
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            IProductService productService = new ProductService();
+            Console.WriteLine(productService.GetProductById(279622));
+            Console.ReadLine();
         }
     }
 }
