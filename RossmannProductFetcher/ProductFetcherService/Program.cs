@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProductFetcherService.Managers;
+using ProductFetcherService.Services;
+using System;
 
 namespace ProductFetcherService
 {
@@ -6,7 +8,10 @@ namespace ProductFetcherService
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            RabbitmqManager.ListenToQueue();
+
+            Console.WriteLine(" Press enter to exit");
+            Console.ReadLine();
         }
     }
 }
