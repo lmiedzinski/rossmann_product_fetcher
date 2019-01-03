@@ -14,6 +14,7 @@ namespace ProductFetcherApi.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
+
             return Ok();
         }
 
