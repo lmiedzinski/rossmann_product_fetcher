@@ -1,0 +1,2 @@
+dotnet publish ./RossmannProductFetcher/ProductFetcherService/ProductFetcherService.sln
+dotnet publish ./RossmannProductFetcher/ProductFetcherApi/ProductFetcherApi.sln

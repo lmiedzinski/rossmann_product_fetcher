@@ -1,0 +1,14 @@
+language: csharp
+dist: trusty
+sudo: required
+mono: none
+dotnet: 2.1
+before_script:
+  - chmod -R a+x ci_scripts
+script:
+  - ./ci_scripts/dotnet_build.sh
+  - ./ci_scripts/dotnet_publish.sh
+notifications:
+  email:
+    on_success: never
+    on_failure: never

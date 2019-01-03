@@ -1,0 +1,4 @@
+dotnet restore ./RossmannProductFetcher/ProductFetcherService/ProductFetcherService.sln
+dotnet restore ./RossmannProductFetcher/ProductFetcherApi/ProductFetcherApi.sln
+dotnet build ./RossmannProductFetcher/ProductFetcherService/ProductFetcherService.sln
+dotnet build ./RossmannProductFetcher/ProductFetcherApi/ProductFetcherApi.sln
