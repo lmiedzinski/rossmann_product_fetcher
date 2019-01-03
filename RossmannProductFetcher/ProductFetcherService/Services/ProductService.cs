@@ -9,10 +9,17 @@ namespace ProductFetcherService.Services
         public string GetProductById(int id)
         {
             string productData = "";
-            using (var httpClient = new HttpClient())
+            try
             {
-                httpClient.DefaultRequestHeaders.Add("accept", "application/json");
-                productData = httpClient.GetStringAsync(new Uri(PRODUCT_API_URL.Replace("%%productId%%", id.ToString()))).Result;
+                using (var httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Add("accept", "application/json");
+                    productData = httpClient.GetStringAsync(new Uri(PRODUCT_API_URL.Replace("%%productId%%", id.ToString()))).Result;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR: " + e.Message);
             }
             return productData;
         }
