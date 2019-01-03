@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  product-fetcher-service:
+    container_name: product-fetcher-service
+    build: ./ProductFetcherService
+    ports:
+      - "8000:80"
+  product-fetcher-api:
+    container_name: product-fetcher-api
+    build: ./ProductFetcherApi
+    ports: 
+      - "80:80"
+    depends_on:
+      - product-fetcher-service
