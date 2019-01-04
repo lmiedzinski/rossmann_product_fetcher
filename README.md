@@ -8,9 +8,14 @@ Simple product info proxy which consists of two services:
 
 This is example of rabbitmq usage in .net core with RabbitMQ.Client and RawRabbit.
 
-## Usage
+## Run
 ```bash
 cd RossmanProductFetcher
 docker-compose build
 docker-compose up
+```
+
+## Usage
+```
+http://localhost/api/products/{product id}
 ```
