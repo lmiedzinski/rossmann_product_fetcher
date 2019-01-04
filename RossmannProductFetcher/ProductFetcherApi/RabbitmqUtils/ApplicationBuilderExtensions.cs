@@ -12,6 +12,7 @@ namespace ProductFetcherApi.RabbitmqUtils
     {
         private const string PUBLISH_QUEUE_NAME = "GetProductById";
         private const string LISTEN_QUEUE_NAME = "ProductFetched";
+        private const string LISTEN_EXCHANGE_NAME = "products";
 
         public static IApplicationBuilder AddHandler<T>(this IApplicationBuilder app, IBusClient client)
             where T : IMessage
@@ -19,7 +20,7 @@ namespace ProductFetcherApi.RabbitmqUtils
             if (!(app.ApplicationServices.GetService(typeof(IHandler<T>)) is IHandler<T> handler))
                 throw new NullReferenceException();
 
-            client.SubscribeAsync<T>(async (msg, context) => await handler.HandleAsync(msg, CancellationToken.None), cfg => cfg.WithQueue(q => q.WithName(LISTEN_QUEUE_NAME)));
+            client.SubscribeAsync<T>(async (msg, context) => await handler.HandleAsync(msg, CancellationToken.None), cfg => cfg.WithExchange(e => e.WithName(LISTEN_EXCHANGE_NAME)).WithQueue(q => q.WithName(LISTEN_QUEUE_NAME)));
             return app;
         }
         public static IApplicationBuilder AddHandler<T>(this IApplicationBuilder app)

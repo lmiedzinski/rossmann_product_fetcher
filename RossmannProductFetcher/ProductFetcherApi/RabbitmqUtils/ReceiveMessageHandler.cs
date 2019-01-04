@@ -18,8 +18,11 @@ namespace ProductFetcherApi.RabbitmqUtils
 
         public async Task HandleAsync(ReceiveMessage @event, CancellationToken token)
         {
-            Console.WriteLine($"Receive: {@event.Data}");
-            await _productRepository.AddProduct(@event.Data.ToString());
+            if (@event != null)
+            {
+                Console.WriteLine($"Receive: {@event.Data}");
+                await _productRepository.AddProduct(@event.Data.ToString());
+            }
             return;
         }
     }
