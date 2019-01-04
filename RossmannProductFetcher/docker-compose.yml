@@ -4,12 +4,35 @@ services:
   product-fetcher-service:
     container_name: product-fetcher-service
     build: ./ProductFetcherService
-    ports:
-      - "8000:80"
+    depends_on:
+      - rabbit
+    links:
+      - rabbit
+    restart: on-failure
   product-fetcher-api:
     container_name: product-fetcher-api
     build: ./ProductFetcherApi
     ports: 
-      - "80:80"
+      - 80:80
+      - 443:443
     depends_on:
       - product-fetcher-service
+      - product-db
+      - rabbit
+    links:
+      - rabbit
+    restart: on-failure
+  product-db:
+    image: mongo:latest
+    container_name: product-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=toor
+    ports:
+      - 27017:27017
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: rabbit
+    ports:
+      - 15672:15672
+      - 5672:5672

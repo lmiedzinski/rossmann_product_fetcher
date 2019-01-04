@@ -6,7 +6,7 @@ namespace ProductFetcherApi.Managers
 {
     public static class RabbitmqManager
     {
-        private const string RABBITMQ_HOSTNAME = "localhost";
+        private const string RABBITMQ_HOSTNAME = "rabbit";
         private const string PUBLISH_QUEUE_NAME = "GetProductById";
         public static void PublishToQueue(int id)
         {

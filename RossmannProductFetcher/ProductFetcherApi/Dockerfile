@@ -5,9 +5,9 @@ EXPOSE 443
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["ProductFetcherApi/ProductFetcherApi.csproj", "ProductFetcherApi/"]
+COPY ["./ProductFetcherApi.csproj", "ProductFetcherApi/"]
 RUN dotnet restore "ProductFetcherApi/ProductFetcherApi.csproj"
-COPY . .
+COPY . ./ProductFetcherApi/
 WORKDIR "/src/ProductFetcherApi"
 RUN dotnet build "ProductFetcherApi.csproj" -c Release -o /app
 

@@ -9,9 +9,10 @@ namespace ProductFetcherService.Managers
 {
     public static class RabbitmqManager
     {
-        private const string RABBITMQ_HOSTNAME = "localhost";
+        private const string RABBITMQ_HOSTNAME = "rabbit";
         private const string LISTEN_QUEUE_NAME = "GetProductById";
-        private const string PUBLISH_QUEUE_NAME = "ProductFetched";
+        private const string PUBLISH_QUEUE_NAME = "ProductFetched_/app/productfetcherapi";
+        private const string PUBLISH_EXCHANGE_NAME = "";
         public static void ListenToQueue()
         {
             var factory = new ConnectionFactory() { HostName = RABBITMQ_HOSTNAME };
@@ -23,11 +24,11 @@ namespace ProductFetcherService.Managers
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
-                channel.QueueDeclare(queue: PUBLISH_QUEUE_NAME,
-                                     durable: false,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
+                //channel.QueueDeclare(queue: PUBLISH_QUEUE_NAME,
+                //                     durable: false,
+                //                     exclusive: false,
+                //                     autoDelete: false,
+                //                     arguments: null);
 
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, ea) =>
@@ -40,7 +41,7 @@ namespace ProductFetcherService.Managers
                     {
                         string productData = productService.GetProductById(productId);
                         var publishBody = Encoding.UTF8.GetBytes(productData);
-                        channel.BasicPublish(exchange: "",
+                        channel.BasicPublish(exchange: PUBLISH_EXCHANGE_NAME,
                                              routingKey: PUBLISH_QUEUE_NAME,
                                              basicProperties: null,
                                              body: publishBody);
@@ -51,7 +52,10 @@ namespace ProductFetcherService.Managers
                                      autoAck: true,
                                      consumer: consumer);
                 Console.WriteLine("Started receiving");
-                Console.ReadLine();
+                while (true)
+                {
+                    Console.ReadLine();
+                }
             }
         }
     }
