@@ -9,9 +9,9 @@ namespace ProductFetcherService.Managers
 {
     public static class RabbitmqManager
     {
-        private const string RABBITMQ_HOSTNAME = "localhost";
+        private const string RABBITMQ_HOSTNAME = "rabbit";
         private const string LISTEN_QUEUE_NAME = "GetProductById";
-        private const string PUBLISH_QUEUE_NAME = "ProductFetched";
+        private const string PUBLISH_QUEUE_NAME = "ProductFetched_productfetcherapi";
         public static void ListenToQueue()
         {
             var factory = new ConnectionFactory() { HostName = RABBITMQ_HOSTNAME };
